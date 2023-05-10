@@ -1,43 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ma page </title>
-</head>
+    <title>Titre de la page</title>
+    <!-- Liens vers les fichiers CSS et JS -->
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+ </head>
+   
 <body>
-    <!DOCTYPE html>
-<html>
-<head>
-	<title> Hospitime </title>
-</head>
-<body>
-	<?php
-		$host = 'localhost';
-		$user = 'root';
-		$password = 'root';
-		$dbname = 'hopital';
-		
-		$conn = mysqli_connect($host, $user, $password, $dbname);
-		if (!$conn) {
-			die('La connexion à la base de données a échoué : ' . mysqli_connect_error());
-		}
-		
-		$query = "SELECT * FROM medecin";
-		$result = mysqli_query($conn, $query);
-		if (!$result) {
-			die('La requête a échoué : ' . mysqli_error($conn));
-		}
-		
-		// while ($row = mysqli_fetch_assoc($result)) {
-		// 	echo '<p>' . $row['consultation'] . ' ' . $row['patients '] . '</p>';
-		// }
-		
-		mysqli_close($conn);
-	?>
-</body>
-</html>
+ <header> 
+    
+    <div class="navbar">
+       <!-- <a href="/" title="Accueil" aria-label="Accueil" class="flex"><div class="logo-doctolib logo-doctolib-white"></div> </a>
 
+        <a href="#">À propos</a> -->
+        <!-- <a href="#">Services</a> -->
+        <a href="formulaire.php#"> 👤 Se connecter </a>
+        <div class="logo">
+        <img src="doc.png" alt=" ">
+    </div>
+    </div> 
+
+ </header>
+  <?php 
+  // Inclusion du fichier connexion_bdd.php pour établir la connexion à la base de données
+       include("includes.php");
+      ?>
+        
+	 
+    <!-- Pied de page -->
+ <footer>
+        <!-- <p>Copyright © 2023</p> -->
+  </footer>
 </body>
 </html>
