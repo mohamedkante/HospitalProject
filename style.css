@@ -12,30 +12,92 @@
     height: 50%;
     background-color: hsl(212, 72%, 50%); /* Couleur bleue */
     z-index: -1;
-  
   }
   /* CSS pour la barre de navigation */
    .navbar {
     background-color: hsl(212, 72%, 50%);
     overflow: hidden;
   }
-  .navbar a {
+   .navbar a {
     float: right;
     display: flex;
-    color: hsl(0, 0%, 98%);
+    color: hsl(0, 0%, 100%);
     text-align: right;
-    padding: 14px 16px;
+    padding: 8px 8px;
     text-decoration: none;
     font-weight: 900;
-
+    border-radius: 5px;
   }
+   .navbar .register-link {
+    background-color: rgb(255, 255, 255);
+    color: hsl(212, 72%, 50%);
+    border-radius: 20px 20px;
+    padding: 8px 8px;
+    text-decoration: none;
+  } 
+  .register-link {
+    cursor: pointer; /* Utilisez 'pointer' pour un curseur en forme de main */
+  }
+
 .logo img {
   background-position: 50%;
   background-position-x: 50%;
-  background-position-y: center;
+  background-position-y: left;
   background-repeat: no-repeat;
   background-size: 95px auto;
   display: inline-block;
-  height: 50px;
-  width: 95px;
+  height: auto;
+  width: 150px;
+  cursor: pointer; 
  }
+
+ main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+  margin: 0;
+}
+.search-bar {
+  display: flex;
+  align-items: center;
+  background-color: #ffffff;
+  padding: 2px;
+  box-sizing: border-box;
+  border-radius: 5px;
+  width: 600px;
+}
+ .search-input {
+  flex-grow: 1;
+  border: none;
+  outline: none;
+  padding: 20px;
+  font-size: 15px;
+}
+.search-button {
+  background-color: #2196f3;
+  color: #fff;
+  border: none;
+  padding: 14px 24px;
+  font-size: 13px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-left: 10px;
+} 
+footer {
+  position: relative;
+}
+
+.download-section {
+  position: absolute;
+  bottom: 0;
+  right: left;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+
+.download-section img {
+  width: 40px; /* Ajustez la taille selon vos besoins */
+  margin-left: 10px; /* Ajoutez un espace entre les logos si nécessaire */
+}
