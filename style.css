@@ -1,7 +1,8 @@
   
-  body  {
+  body {
     background-color: #ffffff;
   }
+  
   body::before {
     content: "";
     display: block;
@@ -10,94 +11,114 @@
     left: 0;
     right: 0;
     height: 50%;
-    background-color: hsl(212, 72%, 50%); /* Couleur bleue */
+    background-color: hsl(212, 72%, 50%);
     z-index: -1;
   }
-  /* CSS pour la barre de navigation */
-   .navbar {
+  
+  header {
     background-color: hsl(212, 72%, 50%);
-    overflow: hidden;
+    padding: 3px 20px;
   }
-   .navbar a {
-    float: right;
+  
+  nav {
     display: flex;
-    color: hsl(0, 0%, 100%);
-    text-align: right;
-    padding: 8px 8px;
-    text-decoration: none;
-    font-weight: 900;
-    border-radius: 5px;
+    align-items: center;
+    justify-content: space-between;
   }
-   .navbar .register-link {
+  
+  .logo img {
+    height: 55px;
+    border-radius: 20px;
+    cursor: pointer;
+  }
+  
+  .menu {
+    list-style-type: none;
+    display: flex;
+  }
+  
+  .menu li {
+    margin-right: 10px;
+  }
+  
+  .menu li a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+  }
+  
+  .menu li a:hover {
+    color: #ff8400;
+  }
+  
+  .navbar .register-link {
     background-color: rgb(255, 255, 255);
     color: hsl(212, 72%, 50%);
     border-radius: 20px 20px;
     padding: 8px 8px;
     text-decoration: none;
-  } 
-  .register-link {
-    cursor: pointer; /* Utilisez 'pointer' pour un curseur en forme de main */
   }
-
-.logo img {
-  background-position: 50%;
-  background-position-x: 50%;
-  background-position-y: left;
-  background-repeat: no-repeat;
-  background-size: 95px auto;
-  display: inline-block;
-  height: auto;
-  width: 150px;
-  cursor: pointer; 
- }
-
- main {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 60vh;
-  margin: 0;
-}
-.search-bar {
-  display: flex;
-  align-items: center;
-  background-color: #ffffff;
-  padding: 2px;
-  box-sizing: border-box;
-  border-radius: 5px;
-  width: 600px;
-}
- .search-input {
-  flex-grow: 1;
-  border: none;
-  outline: none;
-  padding: 20px;
-  font-size: 15px;
-}
-.search-button {
-  background-color: #2196f3;
-  color: #fff;
-  border: none;
-  padding: 14px 24px;
-  font-size: 13px;
-  cursor: pointer;
-  border-radius: 5px;
-  margin-left: 10px;
-} 
-footer {
-  position: relative;
-}
-
-.download-section {
-  position: absolute;
-  bottom: 0;
-  right: left;
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
-}
-
-.download-section img {
-  width: 40px; /* Ajustez la taille selon vos besoins */
-  margin-left: 10px; /* Ajoutez un espace entre les logos si nécessaire */
-}
+  
+  .register-link {
+    cursor: pointer;
+  }
+  
+  .content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60vh;
+    margin: 30px;
+  }
+  
+  .search-bar {
+    display: flex;
+    align-items: center;
+    background-color: #ffffff;
+    padding: 2px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    width: 600px;
+  }
+  
+  .search-input {
+    flex-grow: 1;
+    border: none;
+    outline: none;
+    padding: 20px;
+    font-size: 15px;
+  }
+  
+  .search-button {
+    background-color: #2196f3;
+    color: #fff;
+    border: none;
+    padding: 14px 24px;
+    font-size: 13px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-left: 10px;
+  }
+  
+  footer {
+    position: 0;
+  }
+  
+  .download-section {
+    position: absolute;
+    bottom: 0;
+    right: left;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+  }
+  
+  .image1 {
+    width: 150px;
+    margin-left: 50px;
+  }
+  
+  .image2 {
+    width: 145px;
+  }
+  
