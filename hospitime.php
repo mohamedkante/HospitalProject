@@ -49,7 +49,6 @@
             
             <?php
     // Code de connexion à la base de données et autres configurations...
-    var_dump($_POST);
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (isset($_POST['patients'])) {
             
@@ -93,15 +92,41 @@
             }
         }
     }
-
     // Code pour fermer la connexion à la base de données et autres actions supplémentaires...
-    $conn->close();
-?>
+   
+        ?> 
+        <?php
+       $searchResults = ""; // Chaîne de caractères pour stocker les résultats de recherche
+
+if (isset($_GET['query'])) {
+    $searchTerm = $_GET['query'];
+
+    // Requête SQL pour récupérer les données correspondant au terme de recherche
+    $sql = "SELECT nom, prenom, genre, email, telephone, etablissement, specialite FROM medecin WHERE nom LIKE '%$searchTerm%' OR prenom LIKE '%$searchTerm%' OR etablissement LIKE '%$searchTerm%' OR specialite LIKE '%$searchTerm%'";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $searchResults .= "Nom: " . $row["nom"] . "<br>";
+            $searchResults .= "Prénom: " . $row["prenom"] . "<br>";
+            $searchResults .= "Genre: " . $row["genre"] . "<br>";
+            $searchResults .= "Email: " . $row["email"] . "<br>";
+            $searchResults .= "Téléphone: " . $row["telephone"] . "<br>";
+            $searchResults .= "Etablissement: " . $row["etablissement"] . "<br>";
+            $searchResults .= "Spécialité: " . $row["specialite"] . "<br><br>";
+        }
+    } else {
+        $searchResults = "Aucun résultat trouvé pour la recherche : " . $searchTerm;
+    }
+}
+
+$conn->close();
+       echo $searchResults;
+       ?>
+      
+       
 
 
-             
-           
-        
     </main>
 
     <!-- Pied de page -->
