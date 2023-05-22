@@ -1,6 +1,6 @@
 body {
     
-     background-color: #f1f1f1;
+    background-color: #f1f1f1;
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
@@ -9,14 +9,14 @@ body {
     align-items: center;
     height: 100vh; 
 }
-
-.h3 {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    margin-bottom: 15px; Ajoutez une marge inférieure si nécessaire
+#form-titre {
+    color: #000000;
+    font-size: 24px;
+    text-decoration: none;
+    text-align: center;
+    font-family: "Lobster", cursive;
+    
 }
-
 form {
     background-color: #fff;
     padding: 20px;
@@ -28,6 +28,8 @@ form {
 label {
     display: block;
     margin-bottom: 10px;
+    font-family: "Lobster", cursive;
+
 }
 
 input[type="text"],
@@ -52,6 +54,7 @@ input[type="submit"] {
 
 input[type="submit"]:hover {
     background-color: #45a049;
+
 }
 
 a {

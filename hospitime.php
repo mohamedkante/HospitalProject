@@ -20,13 +20,14 @@
 			die('La connexion à la base de données a échoué : ' . mysqli_connect_error());
 		}
 		
-		$query = "SELECT * FROM medecin";
+		$query = "SELECT * FROM patients";
 		$result = mysqli_query($conn, $query);
 		if (!$result) {
 			die('La requête a échoué : ' . mysqli_error($conn));
 		}
 		
 	    ?>  
+
         <?php
         require_once 'vendor/autoload.php';
         $loader = new \Twig\Loader\FilesystemLoader('templates');
@@ -37,12 +38,70 @@
         $template = $twig->load('formulaire.twig');
         $template = $twig->load('index.twig');
 
+
         // Rendre le template avec les données du formulaire
         echo $template->render([
             'connectButtonUrl' => 'formulaire.twig',
             'showForm' => isset($_GET['connect']) // Vérifiez si le paramètre "connect" est présent dans l'URL
         ]);
+        //  
         ?>
+            
+            <?php
+    // Code de connexion à la base de données et autres configurations...
+    var_dump($_POST);
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if (isset($_POST['patients'])) {
+            
+            // Traitement des données du formulaire des patients
+            $nom = $_POST['nom'];
+            $prenom = $_POST['prenom'];
+            $dateNaissance = $_POST['date_naissance'];
+            $telephone = $_POST['telephone_portable'];
+            $email = $_POST['email'];
+
+            // Préparation de la requête SQL pour les patients
+            $sql = "INSERT INTO patients (nom, prenom, date_naissance, telephone, email) 
+                    VALUES ('$nom', '$prenom', '$dateNaissance', '$telephone', '$email')";
+            
+            // Exécution de la requête pour les patients
+            if ($conn->query($sql) === TRUE) {
+                echo "Les données des patients ont été ajoutées avec succès.";
+            } else {
+                echo "Erreur lors de l'ajout des données des patients : " . $conn->error;
+            }
+            
+        } elseif (isset($_POST['medecin'])) {
+            // Traitement des données du formulaire des médecins
+            $nom = $_POST['nom'];
+            $prenom = $_POST['prenom'];
+            $genre = $_POST['genre'];
+            $telephone = $_POST['telephone_portable'];
+            $email = $_POST['email'];
+            $etablissement = $_POST['etablissement'];
+            $specialite = $_POST['specialite'];
+
+            // Préparation de la requête SQL pour les médecins
+            $sql= "INSERT INTO medecin (nom, prenom, genre, telephone, email, etablissement, specialite) 
+                    VALUES ('$nom', '$prenom', '$genre', '$telephone', '$email', '$etablissement', '$specialite')";
+
+            // Exécution de la requête pour les médecins
+            if ($conn->query($sql) === TRUE) {
+                echo "Les données des médecins ont été ajoutées avec succès.";
+            } else {
+                echo "Erreur lors de l'ajout des données des médecins : " . $conn->error;
+            }
+        }
+    }
+
+    // Code pour fermer la connexion à la base de données et autres actions supplémentaires...
+    $conn->close();
+?>
+
+
+             
+           
+        
     </main>
 
     <!-- Pied de page -->

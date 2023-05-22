@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Se connecter à mon compte HospiTime</title>
+    <link rel="stylesheet" href="formPratici.css">
+</head>
+<body>
+     <div class="container"> 
+  <header class="content">
+    <div>
+      <h2>Vous êtes praticien, enregistrez-vous</h2>
+      <form action="../hospitime.php" method="post">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="nom">Nom* </label>
+            <input type="text" id="nom" name="nom" placeholder="Entrez votre nom" required>
+            <input type="hidden" id="medecin" name="medecin"required>
+          </div>
+          <div class="form-group">
+            <label for="prenom">Prénom* </label>
+            <input type="text" id="prenom" name="prenom" placeholder="Entrez votre prenom" required>
+          </div>
+        </div>
+  
+        <div class="form-row">
+          <div class="form-group">
+            <label for="genre">Genre* </label>
+            <input type="text" id="genre" name="genre" list="suggestions">
+            <datalist id="suggestions">
+              <option value="Homme">
+              <option value="Femme">
+            </datalist>
+          </div>
+          <div class="form-group">
+            <label for="telephone_portable">Téléphone Professionel* </label>
+            <input type="telephone" id="telephone_portable" name="telephone_portable" placeholder="Numéro de Téléphone" required>
+          </div>
+        </div>
+  
+        <div class="form-row">
+          <div class="form-group"> 
+            <label for="email">Email* </label>
+            <input type="email" id="email" name="email" placeholder="Email" required>
+          </div>
+          <div class="form-group"> 
+            <label for="etablissement">Établissement* </label>
+            <input type="text" id="etablissement" name="etablissement" placeholder="Etablissements" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"> 
+            <label for="specialite"> Votre specialisté :</label>
+            <input type="specialite" id="specialite" name="specialite" placeholder="Votre spécialité"required>
+          </div>
+        </div>
+        
+         <a href="formulaire.twig" id="Form-patient">Je suis patient</a>
+
+        <input type="submit" value="S'inscrire">
+      </form>
+      <a href="/mot-de-passe-oublie">Mot de passe oublié ?</a>
+    </div>
+  </header>
+</div>
+  
+    
+</body>
+</html>
