@@ -1,0 +1,168 @@
+body {
+  background-color: #ffffff;
+}
+
+body::before {
+  content: "";
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background-color: hsl(212, 72%, 50%);
+  z-index: -1;
+}
+
+header, .menu, .register-link {
+  background-color: hsl(212, 72%, 50%);
+}
+
+header {
+  padding: 3px 20px;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo img {
+  height: 55px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.menu {
+  list-style-type: none;
+  display: flex;
+}
+
+.menu li {
+  margin-right: 10px;
+}
+
+.menu li a, .navbar .register-link {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+}
+
+.menu li a:hover {
+  color: #ff8400;
+}
+
+.register-link, .search-button {
+  cursor: pointer;
+}
+
+.content {
+  text-align: center;
+}
+
+.search-bar {
+  margin-bottom: 20px;
+}
+
+.search-input {
+  padding: 10px;
+  width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.search-button {
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.search-button:hover {
+  background-color: #0056b3;
+}
+
+.search-results {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+
+.search-results-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-gap: 0px;
+  max-height: 400px;
+  overflow-y: scroll;
+  cursor: pointer;
+} 
+
+.search-result-item {
+  margin-bottom: 0.5px;
+  padding: 5px;
+  background-color: #f4f4f4;
+  border-radius: 2px;
+  box-shadow: 0 2px 4px rgba(125, 122, 122, 0.1);
+  
+}
+.search-result-item:hover{
+  color: rgb(7, 165, 208);
+}
+.search-result-item p {
+  margin: 3px 0;
+}
+
+.search-result-item p:first-child {
+  font-weight: bold;
+}
+
+.search-result-item p:last-child {
+  margin-bottom: 0;
+}
+
+.no-results {
+  color: #ff0000;
+}
+
+p {
+  margin: 0;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.result-details {
+  margin-bottom: 5px;
+  font-size: 12px;
+  
+}
+
+.result-details span, .result-label {
+  font-weight: bold;
+}
+
+footer {
+  position: 0;
+}
+
+.download-section {
+  position: absolute;
+  bottom: 0;
+  right: left;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+
+.image1 {
+  width: 150px;
+  margin-left: 50px;
+}
+
+.image2 {
+  width: 145px;
+}

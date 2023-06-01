@@ -2,38 +2,61 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>HospiTime le specialiste des rendez-vous</title>
+    <title>HospiTime le spécialiste des rendez-vous</title>
     <!-- Liens vers les fichiers CSS et JS -->
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
-    <link rel="stylesheet" href="style.css">
-    
+    <link rel="stylesheet" href="styles.css">
 </head> 
-  <body>
-     <header>
-         <nav>
-             <div class="logo">
-                 <img src="doc.png" alt="Logo">
-             </div>
-             <ul class="menu">
-                 <li><a href="#"> </a></li>
-                 <li><a href="#"> </a></li>
-                 <li><a href="#">  </a></li>
-                 <li><a href="templates/register.twig">Hopitaux et Praticiens</a> | </li> 
-                 <li><a href="templates/formulaire.twig">Se connecter</a></li>
-             </ul>
-         </nav>
-     </header>
-     <main class="content">
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="doc.png" alt="Logo">
+            </div>
+            <ul class="menu">
+                <li><a href="#"> </a></li>
+                <li><a href="#"> </a></li>
+                <li><a href="#">  </a></li>
+                <li><a href="templates/register.twig">Hôpitaux et Praticiens</a> | </li> 
+                <li><a href="templates/login.twig">Se connecter</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main class="content">
         <div class="search-bar">
             <form action="" method="GET">
-                <input type="text" class="search-input" name="query" placeholder="🔍 Nom, établissement, spécialité...">
+                <input type="text" class="search-input" name="query" placeholder="🔍 Nom, établissement, spécialité..." value="{{ searchTerm }}">
                 <button type="submit" class="search-button">▷</button>
             </form>
         </div>
         <div class="search-results">
-            {{ searchResults }}
+            {% if searchResults|length > 0 %}
+                <div class="search-results-container">
+                    {% for result in searchResults %}
+                        <div class="search-result-item">
+                            {% if result.photo %}
+                                <img src="{{ result.photo }}" alt="{{ result.nom }} {{ result.prenom }}" class="profile-photo">
+                            {% else %}
+                                <img src="/Users/mohamed/Documents/drMed.jpeg/" alt="{{ result.nom }} {{ result.prenom }}" class="profile-photo">
+                            {% endif %}
+    
+                            {# <p>{{ result.nom }} {{ result.prenom }}</p>
+     #}
+                            <p class="result-details">
+                                <span class="result-label">Etablissement:</span> {{ result.etablissement }}
+                            </p>
+                            <p class="result-details">
+                                <span class="result-label">Spécialité:</span> {{ result.specialite }}
+                            </p>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p class="no-results">Aucun résultat trouvé pour la recherche : {{ searchTerm }}</p>
+            {% endif %}
         </div>
     </main>
- </body>
+    
+</body>
 </html>
