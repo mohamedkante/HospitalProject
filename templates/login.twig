@@ -5,64 +5,92 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>login</title>
-</head>
-
-<body> 
-    <div class="container"> 
-    <div class="login">
-    <h2 >J'ai dejà un compte</h2>
-   </div>
-    <div class="content">
-
-    <form method="POST" action="">
-        <div class="form-group">
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
-        </div>
-        <div class="form-group">
-            <label for="mot_de_passe">Mot de passe:</label>
-            <input type="password" id="mot_de_passe" name="mot_de_passe" required>
-        </div>
-        <button type="submit">Se connecter</button><br>
-        <a href="">Mot de passe oublié?</a> <br>
-     </form>
-     <p class="link">Pas encore de compte ? <a href="formulaire.twig">S'inscrire</a></p>
-    </div>
-  </div>
-
-    <style> 
-      
-          .container{
-            background-position: center;
-
-          }
-          .login{
-            text-align: center;
-            height: 15vh; 
-          }
-          .content{
+    <style>
+        body {
             font-family: Arial, sans-serif;
+            background-position: center;
+           
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .content {
             text-align: center;
             margin-bottom: 10%;
-          
-           
-          }
-          .form-group {
-            /*display: flex;*/
-            justify-content: space-between;
+        }
+
+        .form-group {
+            display: flex;
             align-items: center;
-            margin-bottom: 10px;
-          }
-          
-          .form-group label {
-            flex-basis: 50%; /* Ajuster la largeur du label selon vos besoins */
-          }
-          
-          .link {
-            /* styles pour le lien */
-          }
-          
+            justify-content: center;
+            margin-bottom: 29px;
+        }
+
+        .form-group label {
+            flex-basis: 30%;
+            text-align: right;
+            margin-right: 10px;
+        }
+
+        .form-group input {
+            flex-basis: 70%;
+            padding: 5px;
+        }
+
+        .form-group button {
+            padding: 10px 20px;
+        }
+
+        .link {
+            text-align: center;
+        }
     </style>
-    
+</head>
+<body>
+   
+    <!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>HospiTime le spécialiste des rendez-vous</title>
+    <!-- Liens vers les fichiers CSS et JS -->
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+    <link rel="stylesheet" href="styles.css">
+   
+
+</head> 
+<body>
+    <div class="container">
+        <div class="content">
+            <div class="login">
+                <h2>J'ai déjà un compte</h2>
+            </div>
+            <form action="../hospitime.php" method="POST">
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="mot_de_passe">Mot de passe:</label>
+                    <input type="password" id="mot_de_passe" name="mot_de_passe" required>
+                </div>
+                <button type="submit">Se connecter</button><br>
+                <a href="">Mot de passe oublié?</a> <br>
+            </form>
+            <p class="link">Pas encore de compte ? <a href="formulaire.twig">S'inscrire</a></p>
+
+           
+        </div>
+    </div>
 </body>
-    </html>
+</html>
+    
+
+</body>
+</html>

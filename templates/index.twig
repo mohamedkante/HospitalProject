@@ -12,7 +12,7 @@
     <header>
         <nav>
             <div class="logo">
-                <img src="doc.png" alt="Logo">
+                <a href="hospitime.php"><img src="doc.png" alt="Logo"></a>
             </div>
             <ul class="menu">
                 <li><a href="#"> </a></li>
@@ -36,7 +36,7 @@
                     {% for result in searchResults %}
                         <div class="search-result-item">
                             {% if result.photo %}
-                                <img src="{{ result.photo }}" alt="{{ result.nom }} {{ result.prenom }}" class="profile-photo">
+                            <img src="{{ photoPath }}"alt="Photo du médecin"
                             {% else %}
                                 <img src="/Users/mohamed/Documents/drMed.jpeg/" alt="{{ result.nom }} {{ result.prenom }}" class="profile-photo">
                             {% endif %}
@@ -49,14 +49,23 @@
                             <p class="result-details">
                                 <span class="result-label">Spécialité:</span> {{ result.specialite }}
                             </p>
+                           
                         </div>
                     {% endfor %}
                 </div>
             {% else %}
                 <p class="no-results">Aucun résultat trouvé pour la recherche : {{ searchTerm }}</p>
-            {% endif %}
-        </div>
+          {% endif %} 
+           
+                {% if logged_in %}
+            <p>Vous êtes connecté.</p>
+        {% else %}
+            <p>Veuillez vous connecter.</p>
+        {% endif %}
+
+
+ 
     </main>
-    
+   
 </body>
 </html>

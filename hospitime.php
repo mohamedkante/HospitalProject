@@ -9,72 +9,74 @@
     <script src="script.js"></script>
 </head>
 <body>
-           <?php
-                $host = 'localhost';
-                $user = 'root';
-                $password = 'root';
-                $dbname = 'hopital';
+        <?php
+        session_start();
+        
+        $host = 'localhost';
+        $user = 'root';
+        $password = 'root';
+        $dbname = 'hopital';
 
-                $conn = mysqli_connect($host, $user, $password, $dbname);
-                if (!$conn) {
-                    die('La connexion à la base de données a échoué : ' . mysqli_connect_error());
-                }
+        $conn = mysqli_connect($host, $user, $password, $dbname);
+        if (!$conn) {
+            die('La connexion à la base de données a échoué : ' . mysqli_connect_error());
+        }
 
-                $query = "SELECT * FROM patients";
-                $result = mysqli_query($conn, $query);
-                if (!$result) {
-                    die('La requête a échoué : ' . mysqli_error($conn));
-                }
-             ?>
+        $query = "SELECT * FROM patients";
+        $result = mysqli_query($conn, $query);
+        if (!$result) {
+            die('La requête a échoué : ' . mysqli_error($conn));
+        }
 
-             <?php
-                require_once 'vendor/autoload.php';
-                $loader = new \Twig\Loader\FilesystemLoader('templates');
-                $twig = new \Twig\Environment($loader);
-             ?>
+        require_once 'vendor/autoload.php';
+        $loader = new \Twig\Loader\FilesystemLoader('templates');
+        $twig = new \Twig\Environment($loader);
 
-             <?php
-                // session_start();
-                
-                // // Vérifier si l'utilisateur est déjà connecté
-                // if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
-                //     // Rediriger vers la page de profil
-                //     header("Location: profile.twig");
-                //     exit;
-                // } 
-                // // Vérifier si le formulaire de connexion a été soumis
-                // if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                //     // Vérifier les informations d'identification de l'utilisateur
-                //     $username = $_POST['email'];
-                //     $password = $_POST['mot_de_passe'];
-                
-                //     // Vérifier les informations d'identification dans votre base de données
-                //     // Remplacez cette vérification avec votre propre logique d'authentification
-                // }
 
-                // // Préparer la requête pour vérifier les informations d'identification
-                // $stmt = $conn->prepare("SELECT * FROM utilisateurs WHERE username = ?");
-                // $stmt->bind_param("s", $username);
-                // $stmt->execute();
-                // $result = $stmt->get_result();
-            
-                // // Vérifier si l'utilisateur existe et si le mot de passe est correct
-                // if ($result->num_rows === 1) {
-                //     $row = $result->fetch_assoc();
-                //     if (password_verify($password, $row['password'])) {
-                //         // Authentification réussie
-                //         $_SESSION['logged_in'] = true;
-                //         $_SESSION['username'] = $row['username'];
+// Vérifier si l'utilisateur est déjà connecté
+if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
+    // Utilisateur déjà connecté, rediriger vers la page de profil
+    header("Location: profil.php");
+    exit;
+}
 
-                //         // Rediriger vers la page de profil
-                //         header("Location: profile.php");
-                //         exit;
-                //     }
-                // }
-            
-                // // Authentification échouée
-                // $error_message = "Identifiant ou mot de passe incorrect.";
-                   
+// Vérifier si le formulaire de connexion a été soumis
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Récupérer les informations d'identification du formulaire
+    $email = $_POST['email'];
+    $password = $_POST['mot_de_passe'];
+
+    }
+
+    // Préparer la requête pour vérifier les informations d'identification
+    $stmt = $conn->prepare("SELECT * FROM patients WHERE email = ?");
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    // Vérifier si l'utilisateur existe et si le mot de passe est correct
+    if ($result->num_rows === 1) {
+        $row = $result->fetch_assoc();
+        if (password_verify($password, $row['mot_de_passe'])) {
+            // Authentification réussie
+            $_SESSION['logged_in'] = true;
+            $_SESSION['user_id'] = $row['id'];
+            $_SESSION['user_email'] = $row['email'];
+
+            // Rediriger vers la page de profil ou toute autre page souhaitée
+            header("Location: profil.twig");
+            exit;
+        } else {
+            // Mot de passe incorrect
+            $error_message = "Mot de passe incorrect.";
+        }
+    } else {
+        // Utilisateur inexistant
+        $error_message = "L'utilisateur n'existe pas.";
+    }
+
+    // Fermer la connexion à la base de données
+    $stmt->close();
 
 
             // Code de connexion à la base de données et autres configurations...
@@ -88,11 +90,11 @@
                 $telephone = $_POST['telephone_portable'];
                 $email = $_POST['email'];
                 $motDepasse = $_POST['mot_de_passe'];
-
+              
                 // Préparation de la requête SQL pour les patients
                 $sql = "INSERT INTO patients (nom, prenom, date_naissance, telephone, email, mot_de_passe)
                         VALUES ('$nom', '$prenom', '$dateNaissance', '$telephone', '$email', '$motDepasse')";
-
+                 
                 // Exécution de la requête pour les patients
                 if ($conn->query($sql) === TRUE) {
                     echo "Les données des patients ont été ajoutées avec succès.";
@@ -103,6 +105,7 @@
               } elseif (isset($_POST['medecin'])) {
                 // Traitement des données du formulaire des médecins
                 $nom = $_POST['nom'];
+                var_dump($nom);
                 $prenom = $_POST['prenom'];
                 $genre = $_POST['genre'];
                 $telephone = $_POST['telephone_portable'];
@@ -152,15 +155,14 @@
                 // Récupérer le chemin de la photo de profil du médecin
                 $medecinId = $conn->insert_id;
                
-                $sql = "SELECT medecin FROM medecin WHERE id = $medecinId";
+                $sql = "SELECT id FROM medecin WHERE id = $medecinId";
                 $result = $conn->query($sql);
             
                 if ($result && $result->num_rows > 0) {
                     $row = $result->fetch_assoc();
                     $photoPath = $row['photo'];
                 } else {
-                    $photoPath = "/Users/mohamed/Documents/drMed.jpeg/";
-                }
+                    echo $twig->render('profile.twig', ['photoPath' => $photoPath]);                }
             }
            }
         
@@ -191,9 +193,35 @@
 
         // Charger le template et passer les variables
         echo $twig->render('index.twig', ['searchResults' => $searchResults, 'searchTerm']);
+        
+
+    
         $conn->close();
+       
     ?>
 
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Connexion</title>
+</head>
+<body>
+    <?php if (isset($error_message)) { ?>
+        <p><?php echo $error_message; ?></p>
+    <?php } ?>
+
+    <form method="POST" action="">
+        <label for="email">Email:</label>
+        <input type="email" name="email" required><br>
+
+        <label for="mot_de_passe">Mot de passe:</label>
+        <input type="password" name="mot_de_passe" required><br>
+
+        <input type="submit" value="Se connecter">
+    </form>
+</body>
+</html>
+ 
     <!-- Pied de page -->
     <footer>
         <!-- Votre contenu de footer ici -->
