@@ -9,7 +9,9 @@
     <script src="script.js"></script>
 </head>
 <body>
-        <?php
+    
+
+    <?php
         session_start();
         
         $host = 'localhost';
@@ -33,51 +35,50 @@
         $twig = new \Twig\Environment($loader);
 
 
-// Vérifier si l'utilisateur est déjà connecté
-if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
-    // Utilisateur déjà connecté, rediriger vers la page de profil
-    header("Location: profil.php");
-    exit;
-}
-
-// Vérifier si le formulaire de connexion a été soumis
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Récupérer les informations d'identification du formulaire
-    $email = $_POST['email'];
-    $password = $_POST['mot_de_passe'];
-
-    }
-
-    // Préparer la requête pour vérifier les informations d'identification
-    $stmt = $conn->prepare("SELECT * FROM patients WHERE email = ?");
-    $stmt->bind_param("s", $email);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    // Vérifier si l'utilisateur existe et si le mot de passe est correct
-    if ($result->num_rows === 1) {
-        $row = $result->fetch_assoc();
-        if (password_verify($password, $row['mot_de_passe'])) {
-            // Authentification réussie
-            $_SESSION['logged_in'] = true;
-            $_SESSION['user_id'] = $row['id'];
-            $_SESSION['user_email'] = $row['email'];
-
-            // Rediriger vers la page de profil ou toute autre page souhaitée
-            header("Location: profil.twig");
+        // Vérifier si l'utilisateur est déjà connecté
+        if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
+            // Utilisateur déjà connecté, rediriger vers la page de profil
+            header("Location: profil.php");
             exit;
-        } else {
-            // Mot de passe incorrect
-            $error_message = "Mot de passe incorrect.";
         }
-    } else {
-        // Utilisateur inexistant
-        $error_message = "L'utilisateur n'existe pas.";
-    }
 
-    // Fermer la connexion à la base de données
-    $stmt->close();
+        // Vérifier si le formulaire de connexion a été soumis
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            // Récupérer les informations d'identification du formulaire
+            $email = $_POST['email'];
+            $password = $_POST['mot_de_passe'];
 
+            }
+
+            // Préparer la requête pour vérifier les informations d'identification
+            $stmt = $conn->prepare("SELECT * FROM patients WHERE email = ?");
+            $stmt->bind_param("s", $email);
+            $stmt->execute();
+            $result = $stmt->get_result();
+
+            // Vérifier si l'utilisateur existe et si le mot de passe est correct
+            if ($result->num_rows === 1) {
+                $row = $result->fetch_assoc();
+                if (password_verify($password, $row['mot_de_passe'])) {
+                    // Authentification réussie
+                    $_SESSION['logged_in'] = true;
+                    $_SESSION['user_id'] = $row['id'];
+                    $_SESSION['user_email'] = $row['email'];
+
+                    // Rediriger vers la page de profil ou toute autre page souhaitée
+                    header("Location: profil.twig");
+                    exit;
+                } else {
+                    // Mot de passe incorrect
+                    $error_message = "Mot de passe incorrect.";
+                }
+            } else {
+                // Utilisateur inexistant
+                $error_message = "L'utilisateur n'existe pas.";
+            }
+
+            // Fermer la connexion à la base de données
+                $stmt->close();
 
             // Code de connexion à la base de données et autres configurations...
                 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -96,13 +97,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         VALUES ('$nom', '$prenom', '$dateNaissance', '$telephone', '$email', '$motDepasse')";
                  
                 // Exécution de la requête pour les patients
-                if ($conn->query($sql) === TRUE) {
-                    echo "Les données des patients ont été ajoutées avec succès.";
-                } else {
-                    echo "Erreur lors de l'ajout des données des patients : " . $conn->error;
-                }
+            if ($conn->query($sql) === TRUE) {
+                        echo "Les données des patients ont été ajoutées avec succès.";
+                    } else {
+                        echo "Erreur lors de l'ajout des données des patients : " . $conn->error;
+                    }
 
-              } elseif (isset($_POST['medecin'])) {
+            } elseif (isset($_POST['medecin'])) {
                 // Traitement des données du formulaire des médecins
                 $nom = $_POST['nom'];
                 var_dump($nom);
@@ -169,63 +170,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ?>
         <!-- Affichage de la photo de profil -->
         
-        
-
 
     <?php
-        $searchResults = []; // Tableau pour stocker les résultats de recherche
+            $searchResults = []; // Tableau pour stocker les résultats de recherche
 
-        if (isset($_GET['query'])) {
-            $searchTerm = $_GET['query'];
+            if (isset($_GET['query'])) {
+                $searchTerm = $_GET['query'];
 
-            // Requête SQL pour récupérer les données correspondant au terme de recherche
-            $sql = "SELECT nom, prenom, genre, email, telephone, etablissement, specialite FROM medecin WHERE nom LIKE '%$searchTerm%' OR prenom LIKE '%$searchTerm%' OR etablissement LIKE '%$searchTerm%' OR specialite LIKE '%$searchTerm%'";
-            $result = $conn->query($sql);
+                // Requête SQL pour récupérer les données correspondant au terme de recherche
+                $sql = "SELECT nom, prenom, genre, email, telephone, etablissement, specialite FROM medecin WHERE nom LIKE '%$searchTerm%' OR prenom LIKE '%$searchTerm%' OR etablissement LIKE '%$searchTerm%' OR specialite LIKE '%$searchTerm%'";
+                $result = $conn->query($sql);
 
-            if ($result && $result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
-                    $searchResults[] = $row;
+                if ($result && $result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        $searchResults[] = $row;
+                    }
+                } else {
+                    $searchResults = [];
                 }
-            } else {
-                $searchResults = [];
             }
-        }
 
-        // Charger le template et passer les variables
-        echo $twig->render('index.twig', ['searchResults' => $searchResults, 'searchTerm']);
+            // Charger le template et passer les variables
+            echo $twig->render('index.twig', ['searchResults' => $searchResults, 'searchTerm']);
+            
+
         
-
-    
-        $conn->close();
-       
+            $conn->close();
+        
     ?>
-
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Connexion</title>
-</head>
-<body>
-    <?php if (isset($error_message)) { ?>
-        <p><?php echo $error_message; ?></p>
-    <?php } ?>
-
-    <form method="POST" action="">
-        <label for="email">Email:</label>
-        <input type="email" name="email" required><br>
-
-        <label for="mot_de_passe">Mot de passe:</label>
-        <input type="password" name="mot_de_passe" required><br>
-
-        <input type="submit" value="Se connecter">
-    </form>
-</body>
-</html>
- 
-    <!-- Pied de page -->
-    <footer>
-        <!-- Votre contenu de footer ici -->
-        <p>© 2023 HospiTime. Tous droits réservés.</p>
-    </footer>
-</body>
-</html>
